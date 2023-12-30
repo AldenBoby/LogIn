@@ -16,8 +16,9 @@ namespace RembraceLogIn.Shared.Models
         public string? Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",MinimumLength = 6)]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",MinimumLength = 6)]
         [DataType(DataType.Password)]
+		[RegularExpression(@"^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){6,32}$", ErrorMessage = "Password should have a minimum of 6 chars, at least 1 uppercase, lowercase and a number.")]
         [Display(Name = "Password")]
         public string? Password { get; set; }
 

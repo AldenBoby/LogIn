@@ -4,16 +4,28 @@
 @inject NavigationManager NavigationManager
 
 <div class="dividend">
-	@if (ShowErrors)
+	@* @if (ShowErrors_log==true && ShowErrors_reg == true)
+	{
+		ShowErrors_log = false;
+		ShowErrors_reg = false;
+	} *@
+	@if (ShowErrors_reg)
 	{
 		<div class="alert alert-danger valerror" role="alert">
-			<p>@Error</p>
-			@Error="";
 			@if (Errors != null) foreach (var error in Errors!)
 				{
 					<p>@error</p>
 				}
 		</div>
+		ShowErrors_reg = false;
+	}
+	else if (ShowErrors_log) 
+	{
+		
+		<div class="alert alert-danger valerror" role="alert">
+			<p>@Error</p>
+		</div>
+		ShowErrors_log = false;
 	}
 <div class="main">
 		@if (toggle == "{}") //conditional sets Access page to either Sign up or Log in depending on the button clicked in Home
@@ -58,7 +70,8 @@
 
 	private LoginModel loginModel = new LoginModel();
 	private RegisterModel registerModel = new RegisterModel();
-	private bool ShowErrors;
+	private bool ShowErrors_reg;
+	private bool ShowErrors_log;
 	private string Error = "";
 	private IEnumerable<string>? Errors;
 	[Parameter]
@@ -66,7 +79,7 @@
 
 	private async Task HandleLogin()
 	{
-		ShowErrors = false;
+		ShowErrors_log = false;
 
 		var result = await AuthService.Login(loginModel);
 
@@ -77,13 +90,13 @@
 		else
 		{
 			Error = result.Error!;
-			ShowErrors = true;
+			ShowErrors_log = true;
 		}
 	}
 
 	private async Task HandleRegistration()
 	{
-		ShowErrors = false;
+		ShowErrors_reg = false;
 
 		var result = await AuthService.Register(registerModel);
 
@@ -95,7 +108,7 @@
 		else
 		{
 			Errors = result.Errors;
-			ShowErrors = true;
+			ShowErrors_reg = true;
 		}
 	}
 
