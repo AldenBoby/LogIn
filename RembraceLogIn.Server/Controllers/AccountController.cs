@@ -9,7 +9,7 @@ namespace RembraceLogIn.Server.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager; // existing .net packages used to handle user creation and details, passwords are hased through this as well
         public AccountController(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
@@ -26,7 +26,7 @@ namespace RembraceLogIn.Server.Controllers
             {
                 var errors = result.Errors.Select(x => x.Description);
 
-                return BadRequest(new RegisterResult { Successful = false, Errors = errors });
+                return BadRequest(new RegisterResult { Successful = false, Errors = errors }); //request returned with json response
             }
 
             return Ok(new RegisterResult { Successful = true });

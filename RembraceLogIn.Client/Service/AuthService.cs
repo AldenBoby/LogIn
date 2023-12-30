@@ -26,14 +26,14 @@ namespace RembraceLogIn.Client.Service
         {
             var result = await _httpClient.PostAsJsonAsync("api/Account", registerModel);
             var reg_result = JsonSerializer.Deserialize<RegisterResult>(await result.Content.ReadAsStringAsync(),
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); // get Error messages from json
             if (!result.IsSuccessStatusCode)
             {
                 return new RegisterResult { Successful = false, Errors = reg_result.Errors };
             }
             else
             {
-                return new RegisterResult { Successful = true, Errors = new List<string>() { "Account created successfully" } };
+                return new RegisterResult { Successful = true, Errors = new List<string>() { "Account created successfully" } }; //not yet displayed to user
             }
         }
 
@@ -44,7 +44,7 @@ namespace RembraceLogIn.Client.Service
                 new StringContent(loginAsJson, Encoding.UTF8,"application/json"));
 
             var loginResult = JsonSerializer.Deserialize<LoginResult>(await response.Content.ReadAsStringAsync(),
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true}); // get error message
 
             if (!response.IsSuccessStatusCode)
             {

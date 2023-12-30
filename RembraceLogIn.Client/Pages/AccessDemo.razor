@@ -4,11 +4,7 @@
 @inject NavigationManager NavigationManager
 
 <div class="dividend">
-	@* @if (ShowErrors_log==true && ShowErrors_reg == true)
-	{
-		ShowErrors_log = false;
-		ShowErrors_reg = false;
-	} *@
+	<!--Dispay errors based on where they are coming from, either loginresult or registerresult-->
 	@if (ShowErrors_reg)
 	{
 		<div class="alert alert-danger valerror" role="alert">
@@ -75,7 +71,7 @@
 	private string Error = "";
 	private IEnumerable<string>? Errors;
 	[Parameter]
-	public string toggle { get; set; }
+	public string? toggle { get; set; }
 
 	private async Task HandleLogin()
 	{

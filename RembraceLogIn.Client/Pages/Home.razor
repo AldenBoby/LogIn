@@ -13,6 +13,7 @@
 <div class="welcome-tag">
     <img src="Images/rembrace_text_white.png" id="logo">
 <!--<RembraceLogIn.Client.Pages.LoginDisplay></RembraceLogIn.Client.Pages.LoginDisplay>-->
+<!--If the user is logged in greet them with the username-->
 <AuthorizeView>
     <Authorized>
         <h1>Welcome, @context.User.Identity!.Name</h1>
@@ -24,7 +25,7 @@
 </div>
 
 <div class="home-content">
-    <AuthorizeView>
+    <AuthorizeView> <!--Show text based on if the user is logged in or not-->
         <Authorized>
             <h2>You are now logged in. Your credentials are stored in the server.</h2>
         </Authorized>
@@ -36,10 +37,10 @@
 
 @code{
     public bool on { get; set; }
-    public string toggle;
+    public string? toggle;
     void ToggleLogin() //since the Signup/Login is a combined form, this code changes the state of the form to match which link was clicked.
     {
-        if (on)
+        if (on)// the boolean value sets the toggle, the method is only applied on login click, boolean logic handles the register form
         {
             toggle = "unchecked";
         }
