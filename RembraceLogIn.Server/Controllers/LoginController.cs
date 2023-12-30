@@ -34,11 +34,11 @@ namespace RembraceLogIn.Server.Controllers
                 new Claim(ClaimTypes.Name, login.Email!)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSecurityKey"]!));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSecurityKey"]!)); //Set up token and encrypt 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expiry = DateTime.Now.AddDays(Convert.ToInt32(_configuration["JwtExpiryInDays"]));
 
-            var token = new JwtSecurityToken(
+            var token = new JwtSecurityToken( //token configuration can be modified in appsettings.json
                 _configuration["JwtIssuer"],
                 _configuration["JwtAudience"],
                 claims,
@@ -46,7 +46,7 @@ namespace RembraceLogIn.Server.Controllers
                 signingCredentials: creds
              );
 
-            return Ok(new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token)});
+            return Ok(new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token)}); //only create the token on successful login
         }
     }
 }

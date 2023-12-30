@@ -22,15 +22,15 @@ namespace RembraceLogIn.Client.Service
             _localStorage = localStorage;
         }
 
-        public async Task<RegisterResult> Register(RegisterModel registerModel)
+        public async Task<RegisterResult> Register(RegisterModel registerModel) //Send POST of new user information to be added in the server and notify status of account creation
         {
-            var result = await _httpClient.PostAsJsonAsync("api/accounts", registerModel);
+            var result = await _httpClient.PostAsJsonAsync("api/Account", registerModel);
             if (!result.IsSuccessStatusCode)
-                return new RegisterResult { Successful = false, Errors = new List<string>() { "Error occured" } };
+                return new RegisterResult { Successful = false, Errors = new List<string>() { "Could not create account" } };
             return new RegisterResult { Successful = true, Errors = new List<string>() { "Account created successfully" } };
         }
 
-        public async Task<LoginResult> Login(LoginModel loginModel)
+        public async Task<LoginResult> Login(LoginModel loginModel)//Login to the site if the information existed in the linked DB. If successful create a token to keep the user logged in
         {
             var loginAsJson = JsonSerializer.Serialize(loginModel);
             var response = await _httpClient.PostAsync("api/Login",
@@ -46,12 +46,12 @@ namespace RembraceLogIn.Client.Service
 
             await _localStorage.SetItemAsync("authToken", loginResult!.Token);
             ((CustomAuthenticationStateProvider)_authenticationStateProvider).MarkUserAuthenticated(loginModel.Email!);
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.Token);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.Token);//Token stored in header
 
             return loginResult;
         }
 
-        public async Task Logout()
+        public async Task Logout()//Remove the token and log out the user
         {
             await _localStorage.RemoveItemAsync("authToken");
             ((CustomAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();

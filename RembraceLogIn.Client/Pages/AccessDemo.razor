@@ -1,0 +1,101 @@
+﻿@page "/access/{toggle}"
+
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+
+@if (ShowErrors)
+{
+	<div class="alert alert-danger" role="alert">
+		<p>@Error</p>
+		@if (Errors!=null) foreach (var error in Errors!)
+		{
+			<p>@error</p>
+		}
+	</div>
+}
+<div class="dividend">
+<div class="main">
+		@if (toggle == "{}") //conditional sets Access page to either Sign up or Log in depending on the button clicked in Home
+		{
+			<input type="checkbox" id="chk" aria-hidden="true">
+		}
+		else if (toggle == "{defaultchecked}")
+		{
+			<input type="checkbox" id="chk" aria-hidden="true" checked>
+		}
+	<img src="Images/rembrace_text_white.png" id="logo">
+	<div class="signup">
+		<EditForm Model="registerModel" OnValidSubmit="HandleRegistration">
+			<DataAnnotationsValidator></DataAnnotationsValidator>
+			<ValidationSummary></ValidationSummary>
+			<label for="chk" aria-hidden="true">Sign up</label>
+			<InputText type="email" name="email" placeholder="Email" @bind-Value="registerModel.Email"/>
+			<ValidationMessage For="@(() => registerModel.Email)" />
+			<InputText type="Password" name="pswd" placeholder="Password" @bind-Value="registerModel.Password" />
+			<ValidationMessage For="@(() => registerModel.Password)" />
+			<InputText type="Password" name="confirm_pswd" placeholder="Confirm password" @bind-Value="registerModel.ConfirmPassword"/>
+			<ValidationMessage For="@(() => registerModel.ConfirmPassword)" />
+			<button type = "submit">Sign up</button>
+		</EditForm>
+	</div>
+	<div class="login">
+		<EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+			<DataAnnotationsValidator></DataAnnotationsValidator>
+			<ValidationSummary></ValidationSummary>
+			<label for="chk" aria-hidden="true">Login</label>
+			<InputText id="log_email" name="email" placeholder="Email" @bind-Value="loginModel.Email" />
+			<ValidationMessage For="@(() => loginModel.Email)" />
+			<InputText id="log_pass" type ="Password" name="pswd" placeholder="Password" @bind-Value="loginModel.Password"/>
+			<ValidationMessage For="@(() => loginModel.Password)" />
+			<button type="submit">Login</button>
+		</EditForm>
+	</div>
+</div>
+</div>
+
+@code {
+
+	private LoginModel loginModel = new LoginModel();
+	private RegisterModel registerModel = new RegisterModel();
+	private bool ShowErrors;
+	private string Error = "";
+	private IEnumerable<string>? Errors;
+	[Parameter]
+	public string toggle { get; set; }
+
+	private async Task HandleLogin()
+	{
+		ShowErrors = false;
+
+		var result = await AuthService.Login(loginModel);
+
+		if (result.Successful)
+		{
+			NavigationManager.NavigateTo("/");
+		}
+		else
+		{
+			Error = result.Error!;
+			ShowErrors = true;
+		}
+	}
+
+	private async Task HandleRegistration()
+	{
+		ShowErrors = false;
+
+		var result = await AuthService.Register(registerModel);
+
+		if (result.Successful)
+		{
+			toggle = "{defaultchecked}";
+			NavigationManager.NavigateTo("/access/"+toggle);
+		}
+		else
+		{
+			Errors = result.Errors;
+			ShowErrors = true;
+		}
+	}
+
+}

@@ -1,14 +1,47 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
-
+<div class="welcome-tag">
+<!--<RembraceLogIn.Client.Pages.LoginDisplay></RembraceLogIn.Client.Pages.LoginDisplay>-->
+    <AuthorizeView>
+        <Authorized>
+            <a href="LogOut"><button class="nav_butt">Log out</button></a>
+        </Authorized>
+        <NotAuthorized>
+            <a href="Access/{@toggle}"><button class="nav_butt">Register</button></a>
+            <a href="Access/{@toggle}"><button class="nav_butt" @onclick="@ToggleLogin">Log in</button></a>
+        </NotAuthorized>
+    </AuthorizeView>
 <AuthorizeView>
     <Authorized>
-        <h1>Welcome, @context.User.Identity!.Name!</h1>
+        <h1>Welcome, @context.User.Identity!.Name</h1>
     </Authorized>
     <NotAuthorized>
-        <h1>Hello, world!</h1>
+        <h1>Rembrace Technical Task</h1>
     </NotAuthorized>
 </AuthorizeView>
+</div>
 
-Welcome to your new app.
+<div class="home-content">
+    <h2>Please log in or sign up to see the features of this demo.</h2>
+</div>
+
+@code{
+    public bool on { get; set; }
+    public string toggle;
+    void ToggleLogin() //since the Signup/Login is a combined form, this code changes the state of the form to match which link was clicked.
+    {
+        if (on)
+        {
+            toggle = "unchecked";
+        }
+        else
+        {
+            toggle = "defaultchecked";
+        }
+        on = !on;
+    }
+}
+
+
+
