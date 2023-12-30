@@ -26,8 +26,13 @@ namespace RembraceLogIn.Client.Service
         {
             var result = await _httpClient.PostAsJsonAsync("api/Account", registerModel);
             if (!result.IsSuccessStatusCode)
+            {
                 return new RegisterResult { Successful = false, Errors = new List<string>() { "Could not create account" } };
-            return new RegisterResult { Successful = true, Errors = new List<string>() { "Account created successfully" } };
+            }
+            else
+            {
+                return new RegisterResult { Successful = true, Errors = new List<string>() { "Account created successfully" } };
+            }
         }
 
         public async Task<LoginResult> Login(LoginModel loginModel)//Login to the site if the information existed in the linked DB. If successful create a token to keep the user logged in

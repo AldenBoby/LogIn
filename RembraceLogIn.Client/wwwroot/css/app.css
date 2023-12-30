@@ -21,7 +21,10 @@ a, .btn-link {
 }
 
 .content {
-    padding-top: 1.1rem;
+    /*padding-top: 1.1rem;*/
+    box-sizing:revert;
+    padding-left:revert;
+    padding-right:revert;
 }
 
 /*.valid.modified:not([type=checkbox]) {
@@ -82,7 +85,7 @@ a, .btn-link {
     }
 
         .loading-progress circle:last-child {
-            stroke: #1b6ec2;
+            stroke: #ab570f;
             stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
             transition: stroke-dasharray 0.05s ease-in-out;
         }
@@ -100,4 +103,14 @@ a, .btn-link {
 
 code {
     color: #c02d76;
+}
+
+article {
+    padding-left: revert !important;
+    padding-right: revert !important;
+}
+
+.px-4 {
+    padding-left: revert !important;
+    padding-right: revert !important;
 }

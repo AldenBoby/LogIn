@@ -1,17 +1,17 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
+<AuthorizeView>
+    <Authorized>
+        <a href="LogOut"><button class="nav_butt">Log out</button></a>
+    </Authorized>
+    <NotAuthorized>
+        <a href="Access/{@toggle}"><button class="nav_butt">Sign Up</button></a>
+        <a href="Access/{@toggle}"><button class="nav_butt" @onclick="@ToggleLogin">Log in</button></a>
+    </NotAuthorized>
+</AuthorizeView>
 <div class="welcome-tag">
 <!--<RembraceLogIn.Client.Pages.LoginDisplay></RembraceLogIn.Client.Pages.LoginDisplay>-->
-    <AuthorizeView>
-        <Authorized>
-            <a href="LogOut"><button class="nav_butt">Log out</button></a>
-        </Authorized>
-        <NotAuthorized>
-            <a href="Access/{@toggle}"><button class="nav_butt">Register</button></a>
-            <a href="Access/{@toggle}"><button class="nav_butt" @onclick="@ToggleLogin">Log in</button></a>
-        </NotAuthorized>
-    </AuthorizeView>
 <AuthorizeView>
     <Authorized>
         <h1>Welcome, @context.User.Identity!.Name</h1>

@@ -7,7 +7,7 @@
     min-height: 100vh;
     font-family: 'Jost', sans-serif;
     /*background: linear-gradient(to bottom, white,gray);*/
-    background: #c9c9c9;
+    background: #c9c9c9!important;
 }
 
 .dividend {
@@ -126,4 +126,9 @@ button {
 .welcome-tag {
     background: #ab570f;
     border-radius: 60% / 10%;
+}
+
+.valerror{
+    position:absolute;
+    top:30px;
 }

@@ -26,7 +26,7 @@ namespace RembraceLogIn.Server.Controllers
             {
                 var errors = result.Errors.Select(x => x.Description);
 
-                return Ok(new RegisterResult { Successful = false, Errors = errors });
+                return BadRequest(new RegisterResult { Successful = false, Errors = errors });
             }
 
             return Ok(new RegisterResult { Successful = true });

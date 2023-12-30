@@ -1,13 +1,13 @@
 ﻿body {
-    margin: 0;
+    /*margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background: linear-gradient(to bottom, white,gray);*/
     font-family: 'Jost', sans-serif;
-    /*background: linear-gradient(to bottom, white,gray);*/
-    background: #c9c9c9;
+    background: #eeeeee;
 }
 
 .main {
@@ -53,6 +53,7 @@ input {
     border: none;
     outline: none;
     border-radius: 5px;
+    box-sizing: revert;
 }
 
 button {
@@ -109,4 +110,13 @@ button {
     /*justify-content: center;
 	align-items:center;
 	display:flex;*/
+}
+
+
+.validation-message{
+    color:white;
+}
+
+.login .validation-message {
+    color: #ab570f;
 }
