@@ -22,12 +22,14 @@ namespace RembraceLogIn.Client.Service
             _localStorage = localStorage;
         }
 
-        public async Task<RegisterResult> Register(RegisterModel registerModel) //Send POST of new user information to be added in the server and notify status of account creation
+        public async Task<RegisterResult> Register(RegisterModel registerModel) //Await server response for account creation and notify status
         {
             var result = await _httpClient.PostAsJsonAsync("api/Account", registerModel);
+            var reg_result = JsonSerializer.Deserialize<RegisterResult>(await result.Content.ReadAsStringAsync(),
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             if (!result.IsSuccessStatusCode)
             {
-                return new RegisterResult { Successful = false, Errors = new List<string>() { "Could not create account" } };
+                return new RegisterResult { Successful = false, Errors = reg_result.Errors };
             }
             else
             {

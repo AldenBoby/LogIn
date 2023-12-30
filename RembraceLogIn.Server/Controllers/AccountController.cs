@@ -22,7 +22,7 @@ namespace RembraceLogIn.Server.Controllers
 
             var result = await _userManager.CreateAsync(newUser, model.Password!);
 
-            if(!result.Succeeded)
+            if(!result.Succeeded) // try and create an account, if unsuccessful provide the reasons in errors
             {
                 var errors = result.Errors.Select(x => x.Description);
 

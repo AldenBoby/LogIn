@@ -11,19 +11,27 @@
     </NotAuthorized>
 </AuthorizeView>
 <div class="welcome-tag">
+    <img src="Images/rembrace_text_white.png" id="logo">
 <!--<RembraceLogIn.Client.Pages.LoginDisplay></RembraceLogIn.Client.Pages.LoginDisplay>-->
 <AuthorizeView>
     <Authorized>
         <h1>Welcome, @context.User.Identity!.Name</h1>
     </Authorized>
     <NotAuthorized>
-        <h1>Rembrace Technical Task</h1>
+        <h1>Technical Task</h1>
     </NotAuthorized>
 </AuthorizeView>
 </div>
 
 <div class="home-content">
-    <h2>Please log in or sign up to see the features of this demo.</h2>
+    <AuthorizeView>
+        <Authorized>
+            <h2>You are now logged in. Your credentials are stored in the server.</h2>
+        </Authorized>
+        <NotAuthorized>
+            <h2>Please log in or sign up.</h2>
+        </NotAuthorized>
+    </AuthorizeView>
 </div>
 
 @code{
