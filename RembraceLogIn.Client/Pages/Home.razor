@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject HttpClient Http
 
 <PageTitle>Home</PageTitle>
 <AuthorizeView>
@@ -28,6 +29,21 @@
     <AuthorizeView> <!--Show text based on if the user is logged in or not-->
         <Authorized>
             <h2>You are now logged in. Your credentials are stored in the server.</h2>
+                <table> <!--Table shows the users that are registered in the database-->
+                    <thead>
+                        <tr>
+                            <th>Registered Users</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Users.Count; i++) //!--List all usernames, email == username for the demo
+                        {
+                            <tr>
+                                <td>@Users[i].UserName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
         </Authorized>
         <NotAuthorized>
             <h2>Please log in or sign up.</h2>
@@ -49,6 +65,26 @@
             toggle = "defaultchecked";
         }
         on = !on;
+    }
+
+    private List<UserModel> Users = new List<UserModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Users = await Http.GetFromJsonAsync<List<UserModel>>("api/User"); //await response from the server for getting thr information from the server
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        catch (Exception e)
+        {
+            Console.Write(e);
+        }
+
     }
 }
 

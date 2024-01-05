@@ -24,7 +24,7 @@ namespace RembraceLogIn.Server.Controllers
 
             if(!result.Succeeded) // try and create an account, if unsuccessful provide the reasons in errors
             {
-                var errors = result.Errors.Select(x => x.Description);
+                var errors = result.Errors.Select(x => x.Description); // errors from the usermanager listed
 
                 return BadRequest(new RegisterResult { Successful = false, Errors = errors }); //request returned with json response
             }

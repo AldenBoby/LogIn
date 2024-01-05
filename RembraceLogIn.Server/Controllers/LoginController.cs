@@ -31,7 +31,7 @@ namespace RembraceLogIn.Server.Controllers
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, login.Email!)
+                new Claim(ClaimTypes.Name, login.Email!) //set up for authorisation on homepage (i.e, see authorised view)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSecurityKey"]!)); //Set up token and encrypt 

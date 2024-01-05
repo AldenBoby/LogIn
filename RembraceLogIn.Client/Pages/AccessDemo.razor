@@ -19,7 +19,7 @@
 	{
 		
 		<div class="alert alert-danger valerror" role="alert">
-			<p>@Error</p>
+			<p>@Error</p> <!--only one error, either incorrect username or password-->
 		</div>
 		ShowErrors_log = false;
 	}
@@ -35,7 +35,7 @@
 	<img src="Images/rembrace_text_white.png" id="logo">
 	<div class="signup">
 		<EditForm Model="registerModel" OnValidSubmit="HandleRegistration">
-			<DataAnnotationsValidator></DataAnnotationsValidator>
+			<DataAnnotationsValidator></DataAnnotationsValidator> <!--Display input validation feedback-->
 			@*<ValidationSummary></ValidationSummary>*@
 			<label for="chk" aria-hidden="true">Sign up</label>
 			<InputText type="email" name="email" placeholder="Email" @bind-Value="registerModel.Email"/>

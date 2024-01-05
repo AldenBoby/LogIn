@@ -1,16 +1,4 @@
-﻿@*<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>*@
-
+﻿
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -18,7 +6,7 @@
     <NotFound>
         <CascadingAuthenticationState>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
+                <p>Sorry, there's nothing at this address.</p> <!--displayed when the url is unknown/non-existent->
             </LayoutView>
         </CascadingAuthenticationState>
     </NotFound>
@@ -27,7 +15,7 @@
 @code {
     [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
 
-    private async Task LogUserAuthenticationState()
+    private async Task LogUserAuthenticationState() // check if the user is allowed to view certain content
     {
         var authState = await authenticationStateTask;
         var user = authState.User;

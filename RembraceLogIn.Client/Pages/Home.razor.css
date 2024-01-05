@@ -159,6 +159,7 @@ a {
     padding: 70px;
     text-align: center;
     width:100%;
+    height:250px;
 }
 
 .home-content {
@@ -166,9 +167,9 @@ a {
     text-align: center;
     color: #ab570f;
     background: #eee;
-    margin-top: -70px;
-    padding:60px;
-    height:100%;
+    margin-top: -100px;
+    padding-top:60px;
+    height:200px;
 }
 
 article {
@@ -179,4 +180,11 @@ article {
 .px-4 {
     padding-left: revert!important;
     padding-right: revert!important;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    font-size:20px;
 }

@@ -41,7 +41,7 @@ namespace RembraceLogIn.Client.Service
         {
             var loginAsJson = JsonSerializer.Serialize(loginModel);
             var response = await _httpClient.PostAsync("api/Login",
-                new StringContent(loginAsJson, Encoding.UTF8,"application/json"));
+                new StringContent(loginAsJson, Encoding.UTF8,"application/json")); //wait for server response
 
             var loginResult = JsonSerializer.Deserialize<LoginResult>(await response.Content.ReadAsStringAsync(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true}); // get error message
@@ -53,7 +53,7 @@ namespace RembraceLogIn.Client.Service
 
             await _localStorage.SetItemAsync("authToken", loginResult!.Token);
             ((CustomAuthenticationStateProvider)_authenticationStateProvider).MarkUserAuthenticated(loginModel.Email!);
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.Token);//Token stored in header
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.Token);//Token stored in header as bearer
 
             return loginResult;
         }
