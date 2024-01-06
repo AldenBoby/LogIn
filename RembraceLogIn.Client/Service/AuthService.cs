@@ -52,7 +52,7 @@ namespace RembraceLogIn.Client.Service
             }
 
             await _localStorage.SetItemAsync("authToken", loginResult!.Token);
-            ((CustomAuthenticationStateProvider)_authenticationStateProvider).MarkUserAuthenticated(loginModel.Email!);
+            ((CustomAuthenticationStateProvider)_authenticationStateProvider).MarkUserAuthenticated(loginResult.Token!);
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.Token);//Token stored in header as bearer
 
             return loginResult;

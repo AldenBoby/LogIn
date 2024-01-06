@@ -26,7 +26,7 @@
 </div>
 
 <div class="home-content">
-    <AuthorizeView> <!--Show text based on if the user is logged in or not-->
+    <AuthorizeView Roles="Admin"> <!--Show text based on if the user is logged in or not-->
         <Authorized>
             <h2>You are now logged in. Your credentials are stored in the server.</h2>
                 <table> <!--Table shows the users that are registered in the database-->
@@ -44,6 +44,12 @@
                         }
                     </tbody>
                 </table>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Roles="User">
+        <!--Show text based on if the user is logged in or not-->
+        <Authorized>
+            <h2>User specific features will be implemented soon.</h2>
         </Authorized>
         <NotAuthorized>
             <h2>Please log in or sign up.</h2>

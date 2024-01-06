@@ -30,9 +30,9 @@ namespace RembraceLogIn.Client.Utility
             return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(savedToken), "jwt")));
         }
 
-        public void MarkUserAuthenticated(string email) 
+        public void MarkUserAuthenticated(string token) //changed from email to token for assigning roles
         { 
-            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(new[] {new Claim(ClaimTypes.Name, email)}, "apiauth"));
+            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(token), "jwt"));
             var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
             NotifyAuthenticationStateChanged(authState);
         }

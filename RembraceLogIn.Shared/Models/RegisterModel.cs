@@ -11,6 +11,7 @@ namespace RembraceLogIn.Shared.Models
     {
         [Required]
         [EmailAddress]
+        [RegularExpression(@"^[A-Za-z0-9._% +-]+@rembrace\.co.uk$", ErrorMessage = "Only Emails from the domain @rembrace.co.uk are accepted")]
         [Display(Name = "Email")]
 
         public string? Email { get; set; }

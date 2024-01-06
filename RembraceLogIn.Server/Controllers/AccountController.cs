@@ -29,6 +29,13 @@ namespace RembraceLogIn.Server.Controllers
                 return BadRequest(new RegisterResult { Successful = false, Errors = errors }); //request returned with json response
             }
 
+            await _userManager.AddToRoleAsync(newUser, "User");
+            if (newUser.Email!.ToLower().StartsWith("admin")) 
+            {
+                await _userManager.AddToRoleAsync(newUser, "Admin");
+				return Ok(new RegisterResult { Successful = true });
+			}
+
             return Ok(new RegisterResult { Successful = true });
 
         }
