@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject HttpClient Http
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Home</PageTitle>
 <AuthorizeView>
@@ -80,7 +81,6 @@
         try
         {
             Users = await Http.GetFromJsonAsync<List<UserModel>>("api/User"); //await response from the server for getting thr information from the server
-
         }
         catch (AccessTokenNotAvailableException exception)
         {

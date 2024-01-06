@@ -6,6 +6,7 @@ using RembraceLogIn.Shared.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using static RembraceLogIn.Shared.Models.AccountModel;
 
 namespace RembraceLogIn.Server.Controllers
 {
@@ -14,8 +15,8 @@ namespace RembraceLogIn.Server.Controllers
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public LoginController(IConfiguration configuration, SignInManager<IdentityUser> signInManager)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        public LoginController(IConfiguration configuration, SignInManager<ApplicationUser> signInManager)
         {
             _configuration = configuration;
             _signInManager = signInManager;

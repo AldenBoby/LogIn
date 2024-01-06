@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static RembraceLogIn.Shared.Models.AccountModel;
 
 namespace RembraceLogIn.Shared.Models
 {
@@ -6,5 +7,6 @@ namespace RembraceLogIn.Shared.Models
     {
         public string UserName { get; set; } 
         public string Email { get; set;}
+        public ICollection<Account> Accounts { get; set; }
     }
 }
