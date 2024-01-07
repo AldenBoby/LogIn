@@ -51,6 +51,16 @@
         <!--Show text based on if the user is logged in or not-->
         <Authorized>
             <h2>User specific features will be implemented soon.</h2>
+            @if (Consumer != null && Consumer.Accounts != null)
+            {
+                @foreach (var account in Consumer.Accounts)
+                {
+                    <div class="account-container">
+                        <h3>@account.AccountType</h3>
+                        <div class="balance">@account.Balance</div>
+                    </div>
+                }
+            }
         </Authorized>
         <NotAuthorized>
             <h2>Please log in or sign up.</h2>
@@ -77,6 +87,7 @@
     private List<UserModel> Users = new List<UserModel>();
     private AuthenticationState authState;
     private ClaimsPrincipal authUser;
+    private ApplicationUser Consumer = new ApplicationUser();
 
     protected override async Task OnInitializedAsync()
     {
@@ -84,6 +95,18 @@
         {
             authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             authUser = authState.User;
+            string name = authUser.Identity.Name;
+            if (authUser.Identity.IsAuthenticated)
+            {
+                Consumer = await Http.GetFromJsonAsync<ApplicationUser>("api/Rembrace/"+name);
+            } 
+        }
+        catch (Exception e)
+        {
+            Console.Write(e);
+        }
+        try
+        {
             Users = await Http.GetFromJsonAsync<List<UserModel>>("api/User"); //await response from the server for getting thr information from the server
         }
         catch (AccessTokenNotAvailableException exception)
