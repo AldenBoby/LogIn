@@ -24,7 +24,7 @@ namespace RembraceLogIn.Client.Service
 
         public async Task<RegisterResult> Register(RegisterModel registerModel) //Await server response for account creation and notify status
         {
-            var result = await _httpClient.PostAsJsonAsync("api/Account", registerModel);
+            var result = await _httpClient.PostAsJsonAsync("api/Register", registerModel);
             var reg_result = JsonSerializer.Deserialize<RegisterResult>(await result.Content.ReadAsStringAsync(),
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); // get Error messages from json
             if (!result.IsSuccessStatusCode)

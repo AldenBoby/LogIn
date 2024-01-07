@@ -34,11 +34,6 @@ namespace RembraceLogIn.Server.Data
 				ConcurrencyStamp = Guid.NewGuid().ToString(),
 			});
 
-            //builder.Entity<ApplicationUser>()
-            //.HasMany(u => u.Accounts)
-            //.WithOne(a => a.User)
-            //.HasForeignKey(a => a.UserId);
-
         } 
     }
 }

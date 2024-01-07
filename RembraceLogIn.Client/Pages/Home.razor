@@ -75,11 +75,15 @@
     }
 
     private List<UserModel> Users = new List<UserModel>();
+    private AuthenticationState authState;
+    private ClaimsPrincipal authUser;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            authUser = authState.User;
             Users = await Http.GetFromJsonAsync<List<UserModel>>("api/User"); //await response from the server for getting thr information from the server
         }
         catch (AccessTokenNotAvailableException exception)

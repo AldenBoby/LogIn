@@ -51,15 +51,15 @@ namespace RembraceLogIn.Server.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ff136fa9-c19d-4e16-af5f-b6f0966e0cf3",
-                            ConcurrencyStamp = "6f9da135-5f4e-4f72-a0e6-1ce854647f2e",
+                            Id = "b050a070-6cce-41d3-929d-b78471147eeb",
+                            ConcurrencyStamp = "da00abfe-dfa3-4a8b-82a2-b67c036f75ae",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "d0928a4d-d064-4812-a85f-96ee05c252d9",
-                            ConcurrencyStamp = "9e83d91c-a121-4ea0-9b6d-11b7555fc220",
+                            Id = "c188226f-d580-4d3f-b605-a64a954d3d2d",
+                            ConcurrencyStamp = "fc5587f9-20e5-4d40-b44e-49b998189195",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -257,12 +257,12 @@ namespace RembraceLogIn.Server.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Balance")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("AccountType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("float");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");

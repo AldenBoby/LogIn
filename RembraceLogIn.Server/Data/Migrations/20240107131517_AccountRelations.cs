@@ -7,7 +7,7 @@
 namespace RembraceLogIn.Server.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AccountTables : Migration
+    public partial class AccountRelations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,7 @@ namespace RembraceLogIn.Server.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Balance = table.Column<double>(type: "float", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -55,8 +55,8 @@ namespace RembraceLogIn.Server.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "d0928a4d-d064-4812-a85f-96ee05c252d9", "9e83d91c-a121-4ea0-9b6d-11b7555fc220", "Admin", "ADMIN" },
-                    { "ff136fa9-c19d-4e16-af5f-b6f0966e0cf3", "6f9da135-5f4e-4f72-a0e6-1ce854647f2e", "User", "USER" }
+                    { "b050a070-6cce-41d3-929d-b78471147eeb", "da00abfe-dfa3-4a8b-82a2-b67c036f75ae", "User", "USER" },
+                    { "c188226f-d580-4d3f-b605-a64a954d3d2d", "fc5587f9-20e5-4d40-b44e-49b998189195", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -74,12 +74,12 @@ namespace RembraceLogIn.Server.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "d0928a4d-d064-4812-a85f-96ee05c252d9");
+                keyValue: "b050a070-6cce-41d3-929d-b78471147eeb");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "ff136fa9-c19d-4e16-af5f-b6f0966e0cf3");
+                keyValue: "c188226f-d580-4d3f-b605-a64a954d3d2d");
 
             migrationBuilder.DropColumn(
                 name: "Discriminator",

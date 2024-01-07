@@ -8,10 +8,10 @@ namespace RembraceLogIn.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class RegisterController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager; // existing .net packages used to handle user creation and details, passwords are hased through this as well
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public RegisterController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
@@ -30,16 +30,19 @@ namespace RembraceLogIn.Server.Controllers
                 return BadRequest(new RegisterResult { Successful = false, Errors = errors }); //request returned with json response
             }
 
-            var account = new Account { Balance = 0 , User = newUser};
+            // Create an Account in the accounts table for every user
+            var account = new Account { User = newUser};
             newUser.Accounts = new List<Account> {account};
             await _userManager.UpdateAsync(newUser);
 
-            await _userManager.AddToRoleAsync(newUser, "User");
             if (newUser.Email!.ToLower().StartsWith("admin")) 
             {
                 await _userManager.AddToRoleAsync(newUser, "Admin");
-				return Ok(new RegisterResult { Successful = true });
 			}
+            else
+            {
+                await _userManager.AddToRoleAsync(newUser, "User");
+            }
 
 
             return Ok(new RegisterResult { Successful = true });
