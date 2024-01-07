@@ -50,7 +50,6 @@
     <AuthorizeView Roles="User">
         <!--Show text based on if the user is logged in or not-->
         <Authorized>
-            <h2>User specific features will be implemented soon.</h2>
             @if (Consumer != null && Consumer.Accounts != null)
             {
                 @foreach (var account in Consumer.Accounts)
@@ -60,6 +59,8 @@
                         <div class="balance">@account.Balance</div>
                     </div>
                 }
+                //<div class="add_theaccount"><button class ="accountbtn">Add Account +</button></div>-->
+               
             }
         </Authorized>
         <NotAuthorized>
